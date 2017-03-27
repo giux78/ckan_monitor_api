@@ -10,6 +10,8 @@ libraryDependencies ++= Seq(
   jdbc,
   cache,
   ws,
+  filters,
   "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.1" % Test,
-  "org.mongodb" %% "casbah" % "3.1.1"
+  "org.mongodb" %% "casbah" % "3.1.1",
+  "io.swagger" %% "swagger-play2" % "1.5.3"
 )

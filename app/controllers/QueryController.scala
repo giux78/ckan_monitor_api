@@ -14,9 +14,9 @@ import play.api.libs.json.Json
 @Singleton
 class QueryController @Inject() extends Controller {
 
-  def all(collName:String) = Action {
+  def all(collName: String) = Action {
     val mongoClient = MongoClient("localhost", 27017)
-    val db = mongoClient("new_monitor")
+    val db = mongoClient("monitor_mdb")
     val coll = db(collName)
     //  val queryObject = MongoDBObject()
 
@@ -26,10 +26,10 @@ class QueryController @Inject() extends Controller {
     val json = com.mongodb.util.JSON.serialize(results)
     Ok(Json.parse(json))
   }
-  
-    def categories() = Action {
+
+  def categories() = Action {
     val mongoClient = MongoClient("localhost", 27017)
-    val db = mongoClient("new_monitor")
+    val db = mongoClient("monitor_mdb")
     val coll = db("dist_format_by_group")
 
     val results = coll.distinct("title").toList
@@ -39,9 +39,9 @@ class QueryController @Inject() extends Controller {
     Ok(Json.parse(json))
   }
 
-   def catalogQ(collName:String, catalogName:String) = Action {
+  def catalogQ(collName: String, catalogName: String) = Action {
     val mongoClient = MongoClient("localhost", 27017)
-    val db = mongoClient("new_monitor")
+    val db = mongoClient("monitor_mdb")
     val coll = db(collName)
     val catalog = catalogName.replaceAll("_", " ")
     val query = "catalog_parent_name" $eq catalog
@@ -52,10 +52,10 @@ class QueryController @Inject() extends Controller {
     val json = com.mongodb.util.JSON.serialize(results)
     Ok(Json.parse(json))
   }
-   
-   def formatDist(collName:String, catalogName:String) = Action {
+
+  def formatDist(collName: String, catalogName: String) = Action {
     val mongoClient = MongoClient("localhost", 27017)
-    val db = mongoClient("new_monitor")
+    val db = mongoClient("monitor_mdb")
     val coll = db(collName)
     val catalog = catalogName.replaceAll("_", " ")
     val query = "title" $eq catalog
@@ -66,7 +66,6 @@ class QueryController @Inject() extends Controller {
     val json = com.mongodb.util.JSON.serialize(results)
     Ok(Json.parse(json))
   }
-
 
 }
 

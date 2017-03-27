@@ -30,7 +30,7 @@ demo = {
 			var tot = 0
 			data.map(function(item){
 				if (item.m_status === 'ko'){
-					tot = item._c0;
+					tot = item.count;
 				}
 			})
 			$("#blinks").html("Broken Links : " + tot)
@@ -39,18 +39,18 @@ demo = {
 		$.getJSON("/coll/datasets", function(data) {
 			var tot = 0
 			data.map(function(item){
-				tot = item._c0 + tot
+				tot = item.count + tot
 			})
 			$("#tots").html("Datasets : " + tot)
 		});
 		
 	   	$.getJSON("/coll/format_dist", function(data) {
 
-	   	data.sort(function(a, b){return b._c0-a._c0});
+	   	data.sort(function(a, b){return b.count-a.count});
 	   	var total = 0	
 	   	var series = data.map(function(item){
-	   		total = total + item._c0
-	   		return item._c0
+	   		total = total + item.count
+	   		return item.count
 	   	})
 	    
 	   	var labels = data.map(function(item){
@@ -86,11 +86,11 @@ demo = {
 	   	
 	   	$.getJSON("/coll/license", function(data) {
 
-		   	data.sort(function(a, b){return b._c0-a._c0});
+		   	data.sort(function(a, b){return b.count-a.count});
 		   	var total = 0	
 		   	var series = data.map(function(item){
-		   		total = total + item._c0
-		   		return item._c0
+		   		total = total + item.count
+		   		return item.count
 		   	})
 		    
 		   	var labels = data.map(function(item){
@@ -131,7 +131,7 @@ demo = {
 	   	var newSeries = []
 	   	var totals = keys.map(function(item){
 	   		var vals =  testG[item]
-	   		var tots =_.reduce(vals, function(memo, obj){ return memo + obj._c0; }, 0);
+	   		var tots =_.reduce(vals, function(memo, obj){ return memo + obj.count; }, 0);
 	   	    return {"label" : item, "tot" : tots}
 	   	//	newLabels.push(item)
 	   	//	newSeries.push(tots)

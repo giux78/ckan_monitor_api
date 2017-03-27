@@ -3,18 +3,42 @@
 # ~~~~
 
 # An example controller showing a sample home page
-GET     /                           controllers.HomeController.index
-GET     /dashboard                           controllers.HomeController.dashboard
-GET     /catalog                           controllers.HomeController.catalog
+GET   /index                                                   controllers.HomeController.index
+GET   /dashboard                                               controllers.HomeController.dashboard
+GET   /catalog                                                 controllers.HomeController.catalog
 # An example controller showing how to use dependency injection
-GET     /count                      controllers.CountController.count
+GET   /count                                                   controllers.CountController.count
 # An example controller showing how to write asynchronous code
-GET     /message                    controllers.AsyncController.message
+GET   /message                                                 controllers.AsyncController.message
 
-GET     /coll/:collName              controllers.QueryController.all(collName)
-GET     /categories             controllers.QueryController.categories()
-GET     /catalogQuery/:collName/:catalog            controllers.QueryController.catalogQ(collName,catalog)
-GET     /bytitle/:collName/:catalog            controllers.QueryController.formatDist(collName,catalog)
+# Torino Pred
+GET   /prediction/torino/traffic/:roadLcd/:hour/:day_of_week   controllers.PredController.prediction(roadLcd, hour, day_of_week) 
+
+
+# CKAN Monitor API
+GET   /api/v1/monitor/catalogs                                        controllers.MonitorQueryController.catalogs()
+GET   /api/v1/monitor/catalogs/count/:catalogName                     controllers.MonitorQueryController.catalogDatasetCount(catalogName: String)
+GET   /api/v1/monitor/catalogs/distribution_formats/:catalogName      controllers.MonitorQueryController.catalogDistrubutionFormat(catalogName: String)
+GET   /api/v1/monitor/catalogs/distribution_licenses/:catalogName     controllers.MonitorQueryController.catalogDistributionLicense(catalogName: String)
+GET   /api/v1/monitor/catalogs/distribution_groups/:catalogName       controllers.MonitorQueryController.catalogDistrubutionGroups(catalogName: String)
+
+GET   /api/v1/monitor/dati_gov/count                                  controllers.MonitorQueryController.allDatasets()
+GET   /api/v1/monitor/dati_gov/broken_links                           controllers.MonitorQueryController.allBrokenLinks()
+GET   /api/v1/monitor/dati_gov/distribution_formats                   controllers.MonitorQueryController.allDistributionFormats()
+GET   /api/v1/monitor/dati_gov/distribution_licenses                  controllers.MonitorQueryController.allDistributionLiceses()
+GET   /api/v1/monitor/dati_gov/distribution_groups                    controllers.MonitorQueryController.allDistributionGroups()
+
+
+# OLD CKAN
+GET   /coll/:collName                                          controllers.QueryController.all(collName)
+GET   /categories                                              controllers.QueryController.categories()
+GET   /catalogQuery/:collName/:catalog                         controllers.QueryController.catalogQ(collName,catalog)
+GET   /bytitle/:collName/:catalog                              controllers.QueryController.formatDist(collName,catalog)
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.versioned(path="/public/template", file: Asset)
+GET   /assets/*file                                           controllers.Assets.versioned(path="/public/template", file: Asset)
+
+# Swagger API
+GET   /swagger.json                 controllers.ApiHelpController.getResources
+GET   /docs/                        controllers.Assets.at(path="/public/swagger-ui",file="index.html")
+GET   /docs/*file                   controllers.Assets.at(path="/public/swagger-ui",file)

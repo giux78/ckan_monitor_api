@@ -1,11 +1,20 @@
-import javax.inject._
+import javax.inject.Inject
+
+import play.api.http.DefaultHttpFilters
+import play.filters.cors.CORSFilter
+
+class Filters @Inject() (corsFilter: CORSFilter)
+  extends DefaultHttpFilters(corsFilter)
+
+
+/*import javax.inject._
 import play.api._
 import play.api.http.HttpFilters
 import play.api.mvc._
 
 import filters.ExampleFilter
 
-/**
+
  * This class configures filters that run on every request. This
  * class is queried by Play to get a list of filters.
  *
@@ -18,7 +27,7 @@ import filters.ExampleFilter
  * @param exampleFilter A demonstration filter that adds a header to
  * each response.
  */
-@Singleton
+/*@Singleton
 class Filters @Inject() (
   env: Environment,
   exampleFilter: ExampleFilter) extends HttpFilters {
@@ -30,4 +39,6 @@ class Filters @Inject() (
     if (env.mode == Mode.Dev) Seq(exampleFilter) else Seq.empty
   }
 
-}
+}*/
+
+
